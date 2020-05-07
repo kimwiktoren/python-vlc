@@ -261,6 +261,9 @@ class Player(Tk.Frame):
             self.buttons_panel.bind("<B1-Motion>", self._DetectButtonsPanelDragging)
             self.buttons_panel.bind("<ButtonRelease-1>", lambda _: setattr(self, "has_clicked_on_buttons_panel", False))
             self.has_clicked_on_buttons_panel = False
+            self.orig_panel_width = self.buttons_panel.winfo_width()
+            self.orig_panel_height = self.buttons_panel.winfo_height()
+
         else:
             self.is_buttons_panel_anchor_active = False
 
@@ -285,6 +288,7 @@ class Player(Tk.Frame):
             self.buttons_panel.unbind("<Button-1>")
             self.buttons_panel.unbind("<B1-Motion>")
             self.buttons_panel.unbind("<ButtonRelease-1>")
+            self.buttons_panel.geometry("%sx%s" % (self.orig_panel_width, self.orig_panel_height))
 
     def _AnchorButtonsPanel(self):
         video_height = self.parent.winfo_height()
